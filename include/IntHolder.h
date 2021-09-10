@@ -14,7 +14,6 @@ public:
     {
         os << thing << std::endl;
     }
-
 private:
     int thing;
 };
