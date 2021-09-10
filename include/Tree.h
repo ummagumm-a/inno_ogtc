@@ -9,36 +9,24 @@
 
 using namespace std;
 
-struct Node
-{
-    shared_ptr<BaseHolder> el;
-    vector<shared_ptr<Tree>> children;
-};
-
 class Tree
 {
 public:
-    Tree() 
-        : t_size(0),
-          non_init(true),
-          head(make_shared<Node>())
+    Tree(const shared_ptr<BaseHolder>& elem) 
+        : 
+        el(elem)
     {}
+    
 
-    shared_ptr<Node> add_elem(const shared_ptr<BaseHolder>& elem,
-                              const shared_ptr<Node>& node);
-
-    shared_ptr<Node> init(const shared_ptr<BaseHolder>& elem);
+    void add_elem(const shared_ptr<Tree>& elem);
 
     void traverse() const;
 
-    void save_tree(string filename) const;
+    size_t bin_size() const;
 
-    size_t size() const;
 private:
-    shared_ptr<Tree> head;
-
-    size_t t_size;
-    bool non_init;
+    shared_ptr<BaseHolder> el;
+    vector<shared_ptr<Tree>> children;
 };
 
 #endif

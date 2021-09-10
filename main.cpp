@@ -2,6 +2,8 @@
 #include <fstream>
 #include <memory>
 
+#include <vector>
+
 #include "BaseHolder.h"
 #include "IntHolder.h"
 #include "CharArrayHolder.h"
@@ -29,30 +31,52 @@ int main()
 
     shared_ptr<BaseHolder> d1 = make_shared<DoubleHolder>(3.14);
 
-//    Tree tree;
-//    auto n1 = tree.init(i1);
+//    cout << sizeof(*i1) << endl;
+//    cout << sizeof(*ca1) << endl;
+//    cout << sizeof(*d1) << endl;
+
+    cout << sizeof(IntHolder) << endl;
+    cout << sizeof(CharArrayHolder) << endl;
+    cout << sizeof(DoubleHolder) << endl;
+
+    auto tree1 = make_shared<Tree>(i1);
+    auto tree2 = make_shared<Tree>(i2);
+    auto tree3 = make_shared<Tree>(i3);
+    auto tree4 = make_shared<Tree>(i4);
+    auto tree5 = make_shared<Tree>(i5);
+    auto tree6 = make_shared<Tree>(ca1);
+    auto tree7 = make_shared<Tree>(ca2);
+    auto tree8 = make_shared<Tree>(ca3);
+    auto tree9 = make_shared<Tree>(ca4);
+    auto tree10 = make_shared<Tree>(d1);
+
+    tree1->add_elem(tree5);
+    tree1->add_elem(tree7);
+    tree1->add_elem(tree10);
+
+    tree5->add_elem(tree6);
+
+    tree10->add_elem(tree8);
+    tree10->add_elem(tree3);
+    tree10->add_elem(tree4);
+
+    tree6->add_elem(tree9);
+    tree6->add_elem(tree2);
+
+//    tree1->traverse();
 //
-//    auto n2 = tree.add_elem(i5, n1);
-//    auto n3 = tree.add_elem(ca2, n1);
-//    auto n4 = tree.add_elem(d1, n1);
+//    tree1->bin_size();
+
+//    string path = "saved_tree.txt";
+//    ofstream fout;
+//    fout.open(path, ofstream::app);
 //
-//    auto n5 = tree.add_elem(ca1, n2);
-//    auto n6 = tree.add_elem(ca3, n4);
-//    auto n7 = tree.add_elem(i3, n4);
-//    auto n8 = tree.add_elem(i4, n4);
+//    if (fout.is_open())
+//    {
+//        fout.write((char*) &tree, tree.bin_size());
+//    }
 //
-//    auto n9 = tree.add_elem(ca4, n5);
-//    auto n10 = tree.add_elem(i2, n5);
-//
-//    tree.traverse();
-    
-    ofstream myfile("out.txt");
-    if (myfile.is_open())
-    {
-        i1->showThing(cout);
-        ca1->showThing(cout);
-        d1->showThing(cout);
-    }
+//    fout.close();
 
     return 0;
 }

@@ -5,7 +5,7 @@ project(inno_ogtc)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(srcFiles main.cpp src/Tree.cpp src/Utils.cpp)
+set(srcFiles main.cpp src/Tree.cpp src/BaseHolder.cpp)
 
 include_directories(include)
 
