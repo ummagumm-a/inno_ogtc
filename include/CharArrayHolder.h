@@ -2,15 +2,26 @@
 #define CHAR_ARRAY_HOLDER_H
 
 #include <algorithm>
+#include <iostream>
+
 #include "BaseHolder.h"
 
-class CharArrayHolder : public BaseHolder<char[10]> 
+class CharArrayHolder : public BaseHolder
 {
 public: 
     CharArrayHolder(char c_arr[10]) 
     {
         std::copy(c_arr, c_arr + 10, thing);
     }
+
+    void showThing(std::ostream& os) const
+    {
+        for (int i = 0; i < 10; ++i)
+            os << thing[i] << " ";
+        os << "\n";
+    }
+private:
+    char thing[10];
 };
 
 #endif
