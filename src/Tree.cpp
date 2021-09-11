@@ -5,7 +5,6 @@
 using namespace std;
 
 // add an element as a child of existing node
-// returns the address of the new node
 void Tree::add_elem(const shared_ptr<Tree>& elem)
 {
     children.push_back(elem);
@@ -22,39 +21,28 @@ void Tree::traverse() const
             child->traverse();
 }
 
-size_t Tree::bin_size() const
-{
-    auto size = sizeof(Tree) 
-              + sizeof(el) 
-              + sizeof(*el) 
-              + sizeof(vector<shared_ptr<Tree>>) 
-              + sizeof(shared_ptr<Tree>) * children.size();
-
-    if (!children.empty())
-        for (const auto& child : children)
-            size += child->bin_size();
-
-    cout << size << endl;
-    return size;
-}
-
+//  a helper function for serialization
 void Tree::serialize_help(ostream& os, int parent) const
 {
+    // a counter for id's of the nodes
     static int count = 0;
     int id = ++count;
 
+    // write id of the node and id of its parent
     os << id << " " << parent << " ";
 
+    // write info about element
     el->serialize(os);
 
+    // write info for each of the children
     for (const auto& child : children)
-    {
         child->serialize_help(os, id);
-    }
 }
 
+// function for serialization
 void Tree::serialize(std::ostream& os) const
 {
+    // just call helper function
     serialize_help(os, 0);
 }
 
