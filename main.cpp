@@ -1,19 +1,106 @@
 #include <iostream>
 #include <fstream>
 #include <memory>
-
 #include <vector>
 
 #include "BaseHolder.h"
 #include "IntHolder.h"
 #include "CharArrayHolder.h"
 #include "DoubleHolder.h"
-#include "Tree.h"
+#include "Tree.h" //#include <boost/archive/text_oarchive.hpp>
+//#include <boost/archive/text_iarchive.hpp>
 
 using namespace std;
+/*
+BOOST_CLASS_EXPORT(IntHolder);
+BOOST_CLASS_EXPORT(DoubleHolder);
+BOOST_CLASS_EXPORT(CharArrayHolder);
+
+void save(const shared_ptr<Tree>& tree)
+{
+    text_oarchive oa{ss};
+    oa << tree;
+} 
+
+shared_ptr<Tree> load()
+{
+    text_iarchive ia{ss};
+    shared_ptr<Tree> tree;
+    ia >> tree; 
+    tree->traverse();
+
+    return tree;
+}
+
+*/
+
+//void save(string filename)
+//{
+//    ofstream outfile;
+//    outfile.open(filename);
+//
+//    if (outfile.is_open())
+//    {
+//        i1->serialize(outfile);
+//        i2->serialize(outfile);
+//        i3->serialize(outfile);
+//        i4->serialize(outfile);
+//        i5->serialize(outfile);
+//        ca1->serialize(outfile);
+//        ca2->serialize(outfile);
+//        ca3->serialize(outfile);
+//        ca4->serialize(outfile);
+//        d1->serialize(outfile);
+//    }
+//    outfile.close();
+//}
+
+void load(string filename)
+{
+    ifstream infile;
+    infile.open(filename);
+
+    string line;
+    if (infile.is_open())
+    {
+        while (infile >> line)
+        {
+            if (line == "IntHolder:")
+            {
+                infile >> line;
+                shared_ptr<BaseHolder> i = make_shared<IntHolder>(stoi(line));
+                i->showThing(cout);
+            }
+            else if (line == "CharArrayHolder:")
+            {
+                char arr[10];
+                for (int i = 0; i < 10; ++i)
+                {
+                    infile >> arr[i];
+                }
+
+                shared_ptr<BaseHolder> i = make_shared<CharArrayHolder>(arr);
+                i->showThing(cout);
+            }
+            else if (line == "DoubleHolder:")
+            {
+                infile >> line;
+                
+                shared_ptr<BaseHolder> i = make_shared<DoubleHolder>(stod(line));
+                i->showThing(cout);
+            }
+            else
+                cout << "skdfjlekw\n";
+        }
+    }
+    
+    infile.close();
+}
+
 
 int main()
 {
+//    load("outfile.txt");
     char arr1[10] = "FULCRUM";
     char arr2[10] = "C++";
     char arr3[10] = "TEST";
@@ -31,13 +118,31 @@ int main()
 
     shared_ptr<BaseHolder> d1 = make_shared<DoubleHolder>(3.14);
 
+//    ofstream outfile;
+//    outfile.open("outfile.txt");
+//
+//    if (outfile.is_open())
+//    {
+//        i1->serialize(outfile);
+//        i2->serialize(outfile);
+//        i3->serialize(outfile);
+//        i4->serialize(outfile);
+//        i5->serialize(outfile);
+//        ca1->serialize(outfile);
+//        ca2->serialize(outfile);
+//        ca3->serialize(outfile);
+//        ca4->serialize(outfile);
+//        d1->serialize(outfile);
+//    }
+//    outfile.close();
+
 //    cout << sizeof(*i1) << endl;
 //    cout << sizeof(*ca1) << endl;
 //    cout << sizeof(*d1) << endl;
 
-    cout << sizeof(IntHolder) << endl;
-    cout << sizeof(CharArrayHolder) << endl;
-    cout << sizeof(DoubleHolder) << endl;
+//    cout << sizeof(IntHolder) << endl;
+//    cout << sizeof(CharArrayHolder) << endl;
+//    cout << sizeof(DoubleHolder) << endl;
 
     auto tree1 = make_shared<Tree>(i1);
     auto tree2 = make_shared<Tree>(i2);
@@ -63,6 +168,11 @@ int main()
     tree6->add_elem(tree9);
     tree6->add_elem(tree2);
 
+    ofstream outfile;
+    outfile.open("outtree.txt");
+    if (outfile.is_open())
+        tree1->serialize(outfile);
+    outfile.close();
 //    tree1->traverse();
 //
 //    tree1->bin_size();

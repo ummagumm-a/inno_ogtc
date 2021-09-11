@@ -9,6 +9,8 @@ public:
     virtual ~BaseHolder() = 0;
 
     virtual void showThing(std::ostream& os) const = 0;
+
+    virtual void serialize(std::ostream&) const = 0;
 };
 
 #endif

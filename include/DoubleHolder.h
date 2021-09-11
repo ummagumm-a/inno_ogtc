@@ -14,6 +14,13 @@ public:
     {
         os << thing << std::endl;
     }
+
+    void serialize(std::ostream& os) const
+    {
+        os << "DoubleHolder: ";
+        os << thing << '\n';
+    }
+
 private:
     double thing;
 };
