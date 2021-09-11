@@ -20,6 +20,12 @@ public:
             os << thing[i] << " ";
         os << "\n";
     }
+
+    void serialize(std::ostream& os) const
+    {
+        os << "CharArrayHolder: ";
+        showThing(os);
+    }
 private:
     char thing[10];
 };

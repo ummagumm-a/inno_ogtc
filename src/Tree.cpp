@@ -38,3 +38,24 @@ size_t Tree::bin_size() const
     return size;
 }
 
+void Tree::serialize_help(ostream& os, int parent) const
+{
+    static int count = 0;
+    int id = ++count;
+
+    os << id << " " << parent << " ";
+
+    el->serialize(os);
+
+    for (const auto& child : children)
+    {
+        child->serialize_help(os, id);
+    }
+}
+
+void Tree::serialize(std::ostream& os) const
+{
+    serialize_help(os, 0);
+}
+
+

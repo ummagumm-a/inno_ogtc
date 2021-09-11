@@ -14,6 +14,12 @@ public:
     {
         os << thing << std::endl;
     }
+
+    void serialize(std::ostream& os) const
+    {
+        os << "IntHolder: ";
+        os << thing << '\n';
+    }
 private:
     int thing;
 };
