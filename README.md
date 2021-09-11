@@ -20,5 +20,7 @@ I've created a class Tree containing a node element and a vector of its children
 
 Third part is to save and to recover the tree. I've implemented an algorithm of saving tree contents and structure to 
 a text file outtree.txt. Each line of this file describes a node in the tree in the format:
-*<node_id> <parent_id> <type of element in the node> <value of the element in the node>*. Function `load()` then recovers
-the tree from this file.
+
+<node_id> <parent_id> <type_of_element_in_the_node> <value_of_the_element_in_the_node>
+  
+Function `load()` then recovers the tree from this file.
