@@ -12,7 +12,7 @@ Test task to Inno Oil and Gas Technology Center.
 <li>./inno_ogtc</li>
 </ol>
 
-##Code description
+## Code description
 First part of the task is to create a simple hierarchy of container classes. It is done in classes *Holder.
 
 Second part is to create a tree data structure holding pointers to the base class for holders BaseHolder. 
